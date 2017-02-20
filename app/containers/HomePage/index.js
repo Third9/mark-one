@@ -22,7 +22,7 @@ import messages from './messages';
 import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
-import TextEditor from './TextEditor';
+import { Editor } from './TextEditor';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
@@ -59,7 +59,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
               <FormattedMessage {...messages.startProjectMessage} />
             </p>
           </CenteredSection>
-          <TextEditor />
+          <Editor placeholder={'input...'}></Editor>
           <Section>
             <H2>
               <FormattedMessage {...messages.trymeHeader} />
