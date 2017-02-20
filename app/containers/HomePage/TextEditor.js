@@ -30,10 +30,10 @@ export class Editor extends React.Component {
 
 Editor.modules = {
   toolbar: [
-    [{ 'header': [1, 2, false] }, { 'font': [] }],
+    [{ header: [1, 2, false] }, { font: [] }],
     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [{'list': 'ordered'}, {'list': 'bullet'}, 
-        {'indent': '-1'}, {'indent': '+1'}],
+    [{ list: 'ordered' }, { list: 'bullet' },
+        { indent: '-1' }, { indent: '+1' }],
     ['link', 'image'],
     ['clean'],
   ],
