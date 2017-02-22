@@ -1,0 +1,19 @@
+.container {
+  height: 20rem;
+}
+
+.editor,
+.preview {
+  width: 50%;
+  border-style: dashed;
+  /*height: 100%;*/
+  float: left;
+  overflow: auto;
+}
+
+.ql-editor {
+  min-height: 15rem;
+  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}

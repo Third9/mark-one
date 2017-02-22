@@ -5,11 +5,13 @@ import commonMark from 'commonmark';
 // import ReactRenderer from 'commonmark-react-renderer';
 
 import '../../../node_modules/quill/dist/quill.snow.css';
+import './editor.css';
+
 
 export default class Editor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editorHtml: '' };
+    this.state = { editorHtml: '', previewHtml: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.imperativelyInsertTextAtCursor = this.imperativelyInsertTextAtCursor.bind(this);
@@ -47,7 +49,7 @@ export default class Editor extends React.Component {
     const result = writer.render(parsed); // result is a String
     console.log('result', result);
 
-    this.setState({ editorHtml: content });
+    this.setState({ editorHtml: content, previewHtml: result });
   }
 
   handleClick(event) {
@@ -66,25 +68,25 @@ export default class Editor extends React.Component {
   }
 
   render() {
-    const quillStyle = {
-      '.ql-editor': {
-        'min-height': '15rem',
-      },
-    };
-
     return (
       <div>
-        <ReactQuill
-          style={quillStyle}
-          ref={(ref) => (this.editor = ref)}
-          theme={'snow'}
-          onChange={this.handleChange}
-          onClick={this.handleClick}
-          value={this.state.editorHtml}
-          modules={this.props.modules}
-          formats={this.props.formats}
-          placeholder={this.props.placeholder}
-        />
+        <div className="container">
+          <ReactQuill
+            className="editor"
+            ref={(ref) => (this.editor = ref)}
+            theme={'snow'}
+            onChange={this.handleChange}
+            onClick={this.handleClick}
+            value={this.state.editorHtml}
+            modules={this.props.modules}
+            formats={this.props.formats}
+            placeholder={this.props.placeholder}
+          />
+          <pre
+            className="preview"
+            dangerouslySetInnerHTML={{ __html: this.state.previewHtml }}
+          />
+        </div>
         <button onClick={this.imperativelyInsertTextAtCursor}>Click BTN</button>
       </div>
     );
