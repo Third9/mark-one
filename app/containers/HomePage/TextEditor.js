@@ -3,8 +3,10 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import marked from 'marked';
 
+// stylesheet
 import '../../../node_modules/quill/dist/quill.snow.css';
 import './editor.css';
+import '../../../node_modules/github-markdown-css/github-markdown.css';
 
 
 export default class Editor extends React.Component {
@@ -39,7 +41,7 @@ export default class Editor extends React.Component {
     // console.log('editor.getContents', editor.getContents())
     // console.log('editor.getSelection', editor.getSelection())
     console.log('editor.getText:', texts);
-    
+
     // markedown renderer
     const result = marked(texts);
     console.log('result:', result);
@@ -77,8 +79,8 @@ export default class Editor extends React.Component {
             formats={this.props.formats}
             placeholder={this.props.placeholder}
           />
-          <pre
-            className="preview"
+          <article
+            className="preview markdown-body"
             dangerouslySetInnerHTML={{ __html: this.state.previewHtml }}
           />
         </div>

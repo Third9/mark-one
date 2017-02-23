@@ -6,14 +6,36 @@
 .preview {
   width: 50%;
   border-style: dashed;
-  /*height: 100%;*/
+  height: 100%;
   float: left;
   overflow: auto;
+  margin: 0 0 0 0;
 }
 
-.ql-editor {
-  min-height: 15rem;
-  overflow: hidden;
-  overflow-y: scroll;
-  overflow-x: scroll;
+.preview {
+  padding-top: 4rem;
 }
+
+.preview p,
+.preview ol,
+.preview ul,
+.preview pre,
+.preview blockquote,
+.preview h1,
+.preview h2,
+.preview h3,
+.preview h4,
+.preview h5,
+.preview h6 {
+  margin: 0;
+  padding: 0;
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+
+.ql-container {
+  height: 15rem;
+  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
