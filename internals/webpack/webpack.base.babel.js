@@ -88,6 +88,10 @@ module.exports = (options) => ({
       'main',
     ],
   },
+  node: {
+    fs: 'empty',
+    child_process: 'empty',
+  },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
   performance: options.performance || {},

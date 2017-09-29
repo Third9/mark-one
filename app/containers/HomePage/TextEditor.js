@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ReactQuill from 'react-quill';
-import marked from 'marked';
+import MarkdownIt from 'markdown-it';
 
 // stylesheet
 import '../../../node_modules/quill/dist/quill.snow.css';
@@ -12,20 +12,23 @@ import '../../../node_modules/github-markdown-css/github-markdown.css';
 export default class Editor extends React.Component {
   constructor(props) {
     super(props);
-    marked.setOptions({
-      renderer: new marked.Renderer(),
-      gfm: true,
-      tables: true,
-      breaks: false,
-      pedantic: false,
-      sanitize: false,
-      smartLists: true,
-      smartypants: false,
-    });
+    //marked.setOptions({
+    //  renderer: new marked.Renderer(),
+    //  gfm: true,
+    //  tables: true,
+    //  breaks: false,
+    //  pedantic: false,
+    //  sanitize: false,
+    //  smartLists: true,
+    //  smartypants: false,
+    //});
+    this.md = new MarkdownIt;
 
     this.state = { editorHtml: '', previewHtml: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.handleKeyPress = this.handleKeyPress(this);
     this.imperativelyInsertTextAtCursor = this.imperativelyInsertTextAtCursor.bind(this);
   }
 
@@ -33,24 +36,36 @@ export default class Editor extends React.Component {
     const texts = editor.getText();
 
     console.log('html:', content);
-    // console.log('delta', delta)
-    // console.log('source', source)
-    // console.log('editor', editor)
+    console.log('delta', delta);
+    console.log('source', source);
+    console.log('editor', editor);
 
-    // console.log('editor.getBounds', editor.getBounds())
-    // console.log('editor.getContents', editor.getContents())
-    // console.log('editor.getSelection', editor.getSelection())
+    console.log('editor.getBounds', editor.getBounds(1));
+    console.log('editor.getContents', editor.getContents());
+    //console.log('editor.getEditor', editor.getEditor());
+    //console.log('editor.getLine', editor.getLine());
     console.log('editor.getText:', texts);
 
     // markedown renderer
-    const result = marked(texts);
+    //const result = marked(content);
+    const result = this.md.render(texts);
     console.log('result:', result);
 
     this.setState({ editorHtml: content, previewHtml: result });
   }
 
+  handleKeyPress(event) {
+    console.log('Key', event);
+  }
+
   handleClick(event) {
     console.log('click', event);
+  }
+
+  handleFocus(range, source, editor) {
+    console.log("Focus", range);
+    console.log("Focus", source);
+    console.log("Focus", editor);
   }
 
   imperativelyInsertTextAtCursor() {
@@ -74,6 +89,8 @@ export default class Editor extends React.Component {
             theme={'snow'}
             onChange={this.handleChange}
             onClick={this.handleClick}
+            onFocus={this.handleFocus}
+            onKeyPress={this.handleKeyPress}
             value={this.state.editorHtml}
             modules={this.props.modules}
             formats={this.props.formats}
@@ -84,6 +101,12 @@ export default class Editor extends React.Component {
             dangerouslySetInnerHTML={{ __html: this.state.previewHtml }}
           />
         </div>
+        <div contentEditable="true" style={{
+          width: '300',
+          height: '200',
+          border: '1',
+          borderStyle: 'solid'
+        }}></div>
         <button onClick={this.imperativelyInsertTextAtCursor}>Click BTN</button>
       </div>
     );
